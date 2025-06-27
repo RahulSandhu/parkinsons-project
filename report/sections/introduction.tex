@@ -1,0 +1,106 @@
+\section{Introduction}
+
+Parkinson's disease (PD) is a progressive neurodegenerative disorder affecting
+over 8.5 million people globally as of 2019 \cite{WHO2022}, with cases rising
+due to aging populations and improved diagnostics. A significant challenge for
+about 90\% of individuals with PD is speech impairment \cite{IndianaParkinson},
+known as hypokinetic dysarthria, which includes reduced vocal loudness,
+monotone speech, imprecise articulation, and variable speech rates. Early
+detection of PD through the analysis of speech can confer immense benefit,
+including earlier access to traditional and experimental treatment, which can,
+in turn, help to delay the progression of the disease.
+
+Current methods for detecting PD using speech features include:
+
+\begin{itemize}
+	\item \textbf{Support Vector Machines (SVM):} Used for classifying PD
+	      patients by analyzing speech features like Mel Frequency Ceptral
+	      Coefficients (MFCC) and AutoEncoder patterns
+	      \cite{SpringerSpeechProcessing}.
+	\item \textbf{Deep Neural Networks (DNN):} Employed to model complex patterns
+	      in speech data for accurate PD detection \cite{AIPDNN}.
+	\item \textbf{Random Forests (RF):} Utilized to identify important speech
+	      features and classify patients based on PD-related symptoms
+	      \cite{SpringerMLPD}.
+\end{itemize}
+
+While these methods demonstrate considerable success, this project aims to
+explore the effectiveness of K-Nearest Neighbors (KNN) for PD detection.
+Specifically, three KNN models will be developed: one trained on cleaned data,
+another on aggregated data, and a third on normalized data. KNN is a simple,
+non-parametric algorithm that requires minimal assumptions about the data
+distribution, making it well-suited for small datasets and multi-class
+problems. Additionally, an API will be created to enable users to test the
+models by providing their own input values, offering an interactive tool for PD
+prediction.
+
+\cref{fig:fig1} illustrates project timeline and the task distribution
+spanning from 8/01/2025 to 19/01/2025.
+
+\usetikzlibrary{arrows, positioning, shapes.geometric,
+	decorations.pathreplacing}
+
+\begin{figure}[H]
+	\centering
+	\begin{adjustbox}{scale=0.80}
+		\begin{ganttchart}[
+				vgrid,
+				hgrid,
+				x unit = 0.7cm,
+				y unit title = 0.6cm,
+				y unit chart = 0.6cm,
+				title/.append style = {fill = gray!40},
+				title height = 1,
+				bar height = 0.4,
+				bar/.append style = {fill = green!90, rounded corners = 3pt},
+				bar incomplete/.append style = {fill = gray!50},
+				bar label node/.append style = {align = left, text width = 12em},
+				bar label font = \footnotesize,
+				progress label text = {},
+				milestone label font = \bfseries\small,
+				milestone label node/.append style = {align = left, text width = 12em},
+				milestone height = 0.8,
+				milestone top shift = 0.2,
+				milestone/.append style = {fill = red, xscale=0.85},
+				group/.append style = {draw = black, fill = yellow!90},
+				group label node/.append style = {align = left, text width = 12em},
+				group height = .3,
+				group peaks height = .2,
+				group label font = \bfseries\small,
+				group left shift = 0,
+				group right shift = 0,
+				group top shift = .3,
+				group height = .2,
+			]{1}{12}
+
+			\gantttitle[
+				title label text = {Day},
+				title label font = \bfseries\footnotesize
+			]{8}{12} \\
+			\gantttitlelist[title label font =
+				\tiny]{8,9,10,11,12,13,14,15,16,17,18,19}{1} \\
+
+			\ganttgroup{Processing}{1}{5} \\
+			\ganttbar{Renaming (Scarlett)}{1}{1} \\
+			\ganttbar{Outlier Correction (Scarlett)}{2}{2} \\
+			\ganttbar{Aggregating (Roger)}{3}{3} \\
+			\ganttbar{Normalizing (Rahul)}{4}{5} \\
+
+			\ganttgroup{Model}{6}{7} \\
+			\ganttbar{Collinearity (Roger)}{6}{6} \\
+			\ganttbar{Training (Annabel)}{7}{7} \\
+
+			\ganttgroup{API}{8}{9} \\
+			\ganttbar{Front-end (Rahul/Annabel)}{8}{8} \\
+			\ganttbar{Back-end (Rahul/Annabel)}{9}{9} \\
+
+			\ganttgroup{Report and Video}{10}{12} \\
+			\ganttbar{Writing Report (All)}{10}{11} \\
+			\ganttbar{Recording Video (Roger)}{12}{12} \\
+
+			\ganttmilestone{Completion}{12}
+		\end{ganttchart}
+	\end{adjustbox}
+	\caption{Gantt chart of the project.}
+	\label{fig:fig1}
+\end{figure}

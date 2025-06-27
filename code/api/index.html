@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Select font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Page title -->
+    <title>SP Model Prediction</title>
+
+    <!-- CSS -->
+    <style>
+        /* Page style */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #89f7fe; 
+            background: linear-gradient(120deg, #89f7fe, #66a6ff); 
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Page heading */
+        h1 {
+            text-align: center;
+            font-size: 3rem; 
+            font-weight: bold; 
+            color: #ffffff; 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 20px 0;
+        }
+
+        /* Form container */
+        form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(10px); 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, input[type="text"], button {
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        select {
+            background-color: #ffffff;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Custom button */
+        .custom-upload {
+            position: relative;
+            display: inline-block;
+            max-width: 120px; 
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+        }
+        .custom-upload input[type="file"] {
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .custom-button {
+            display: block;
+            padding: 8px 10px;
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid #0056b3;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            white-space: nowrap;
+        }
+        .custom-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Input fields */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .divider {
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        /* Output and metrics display */
+        #output, #metrics {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #e6f7ff;
+            color: #000000;
+            border: 1px solid #b3e0ff;
+            border-radius: 10px;
+            font-size: 16px;
+            display: none;
+        }
+        #output {
+            font-weight: bold;
+        }
+        #metrics {
+            background-color: #fff4e6;
+            color: #000000;
+            border: 1px solid #ffcc99;
+            text-align: left;
+        }
+
+        /* Style for filename */
+        #file_name {
+            font-style: italic; 
+        }
+
+        /* Error message */
+        .error {
+            background-color: #fce4e4;
+            color: #b71c1c;
+            border: 1px solid #f5c6c6;
+        }
+    </style>
+    <!-- JavaScript -->
+    <script>
+        // Load available datetime folders from the server
+        async function loadDatetimes() {
+            const response = await fetch('/datetimes/');
+            const datetimes = await response.json();
+            const datetimeSelect = document.getElementById('datetime_folder');
+            datetimeSelect.innerHTML = datetimes.map(dt => `<option value="${dt}">${dt}</option>`).join('');
+            loadModels();
+        }
+
+        // Load models for the selected datetime folder
+        async function loadModels() {
+            const datetimeFolder = document.getElementById('datetime_folder').value;
+            const response = await fetch(`/models/?datetime_folder=${datetimeFolder}`);
+            const models = await response.json();
+            const modelSelect = document.getElementById('model_name');
+            modelSelect.innerHTML = models.map(model => `<option value="${model}">${model.replace('.pkl', '')}</option>`).join('');
+            loadMetrics();
+        }
+
+        // Load metrics for the selected model
+        async function loadMetrics() {
+            const datetimeFolder = document.getElementById('datetime_folder').value;
+            const modelName = document.getElementById('model_name').value;
+            const metricsPath = `/metrics/?datetime_folder=${encodeURIComponent(datetimeFolder)}&model_name=${encodeURIComponent(modelName)}`;
+            const response = await fetch(metricsPath);
+
+            const metricsDiv = document.getElementById('metrics');
+            metricsDiv.style.display = 'none'; 
+
+            if (response.ok) {
+                let rawMetrics = await response.text();
+                rawMetrics = rawMetrics.replace(/^"|"$/g, "");
+                metricsDiv.innerHTML = `
+                    <h3>Testing Metrics</h3>
+                    <div>${rawMetrics}</div>
+                `;
+                metricsDiv.style.display = 'block'; 
+            } else {
+                metricsDiv.textContent = 'Metrics could not be loaded.';
+                metricsDiv.style.display = 'block';
+                metricsDiv.className = 'error';
+            }
+        }
+
+        // Predict using the selected model and input data
+        async function predict(event) {
+            event.preventDefault(); 
+            const formData = new FormData(event.target);
+            const response = await fetch(event.target.action, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const outputDiv = document.getElementById('output');
+            outputDiv.style.display = 'none'; 
+            if (response.ok) {
+                const data = await response.json();
+                const modelName = data.model;
+                const prediction = data.prediction;
+                const interpretation = prediction === 1 ? "Parkinson" : "Healthy";
+
+                outputDiv.textContent = `MODEL PREDICTED: ${prediction} (${interpretation})`;
+                outputDiv.className = ""; 
+            } else {
+                const errorData = await response.json();
+                outputDiv.textContent = `Error: ${errorData.detail}`;
+                outputDiv.className = "error";
+            }
+            outputDiv.style.display = 'block'; 
+        }
+
+        // Populate form fields from JSON file
+        function populateFromJSON(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        for (const key in data) {
+                            const inputField = document.querySelector(`[name="${key}"]`);
+                            if (inputField) {
+                                inputField.value = data[key];
+                            }
+                        }
+                        alert('Form populated!');
+                    } catch (error) {
+                        alert('Invalid JSON file.');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        // Function to display the selected file name
+        function showFileName(event) {
+            const fileName = event.target.files[0]?.name || "No file selected";
+            document.getElementById("file_name").textContent = fileName;
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', loadDatetimes);
+    </script>
+</head>
+<!-- HTML -->
+<body>
+    <!-- Main Heading -->
+    <h1>Predict with KNN Models</h1>
+
+    <!-- Form for model prediction -->
+    <form action="/predict/" method="post" onsubmit="predict(event)">
+        <!-- Dropdown for selecting datetime folder -->
+        <div class="form-group">
+            <label for="datetime_folder">Select Datetime Folder:</label>
+            <select name="datetime_folder" id="datetime_folder" onchange="loadModels()"></select>
+        </div>
+
+        <!-- Dropdown for selecting model -->
+        <div class="form-group">
+            <label for="model_name">Select Model:</label>
+            <select name="model_name" id="model_name" onchange="loadMetrics()"></select>
+        </div>
+
+        <!-- Metrics display -->
+        <div id="metrics"></div>
+
+        <!-- Upload file -->
+        <div class="form-group">
+            <label for="upload_json">Upload JSON File:</label>
+            <div class="custom-upload" style="display: flex; align-items: center;">
+                <!-- Custom file button -->
+                <label for="upload_json" class="custom-button" style="cursor: pointer; background-color: #007bff; color: white; padding: 5px 10px; border-radius: 5px;">Choose File</label>
+                <input type="file" id="upload_json" accept=".json" onchange="showFileName(event); populateFromJSON(event);" style="display: none;">
+                <!-- Filename displayed here -->
+                <div id="file_name_container" style="flex-grow: 1; margin-left: 10px;">
+                    <span id="file_name" style="font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider line -->
+        <div class="divider"></div>
+
+        <!-- Input fields for model parameters -->
+        <div class="grid-container">
+            <!-- Column 1 -->
+            <div class="grid-item">
+                <label for="avFF">avFF:</label>
+                <input type="text" id="avFF" name="avFF" required>
+
+                <label for="maxFF">maxFF:</label>
+                <input type="text" id="maxFF" name="maxFF" required>
+
+                <label for="minFF">minFF:</label>
+                <input type="text" id="minFF" name="minFF" required>
+
+                <label for="percJitter">percJitter:</label>
+                <input type="text" id="percJitter" name="percJitter" required>
+
+                <label for="absJitter">absJitter:</label>
+                <input type="text" id="absJitter" name="absJitter" required>
+
+                <label for="rap">rap:</label>
+                <input type="text" id="rap" name="rap" required>
+
+                <label for="ppq">ppq:</label>
+                <input type="text" id="ppq" name="ppq" required>
+            </div>
+            <!-- Column 2 -->
+            <div class="grid-item">
+                <label for="ddp">ddp:</label>
+                <input type="text" id="ddp" name="ddp" required>
+
+                <label for="lShimmer">lShimmer:</label>
+                <input type="text" id="lShimmer" name="lShimmer" required>
+
+                <label for="dbShimmer">dbShimmer:</label>
+                <input type="text" id="dbShimmer" name="dbShimmer" required>
+
+                <label for="apq3">apq3:</label>
+                <input type="text" id="apq3" name="apq3" required>
+
+                <label for="apq5">apq5:</label>
+                <input type="text" id="apq5" name="apq5" required>
+
+                <label for="apq">apq:</label>
+                <input type="text" id="apq" name="apq" required>
+
+                <label for="dda">dda:</label>
+                <input type="text" id="dda" name="dda" required>
+
+                <label for="NHR">NHR:</label>
+                <input type="text" id="NHR" name="NHR" required>
+            </div>
+            <!-- Column 3 -->
+            <div class="grid-item">
+                <label for="HNR">HNR:</label>
+                <input type="text" id="HNR" name="HNR" required>
+
+                <label for="RPDE">RPDE:</label>
+                <input type="text" id="RPDE" name="RPDE" required>
+
+                <label for="DFA">DFA:</label>
+                <input type="text" id="DFA" name="DFA" required>
+
+                <label for="spread1">spread1:</label>
+                <input type="text" id="spread1" name="spread1" required>
+
+                <label for="spread2">spread2:</label>
+                <input type="text" id="spread2" name="spread2" required>
+
+                <label for="D2">D2:</label>
+                <input type="text" id="D2" name="D2" required>
+
+                <label for="PPE">PPE:</label>
+                <input type="text" id="PPE" name="PPE" required>
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit">Predict</button>
+    </form>
+
+    <!-- Output display -->
+    <div id="output"></div>
+</body>
+</html>

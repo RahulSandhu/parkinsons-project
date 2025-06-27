@@ -1,0 +1,339 @@
+\ProvidesPackage{mhedas}%
+
+%%%%%%%%%%%%%%%%%%%%%
+% Font and language %
+%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[utf8]{inputenc}%
+\RequirePackage[T1]{fontenc}%
+\RequirePackage[english]{babel}%
+\RequirePackage{kpfonts}%
+
+%%%%%%%%%%%%%%
+% Title page %
+%%%%%%%%%%%%%%
+
+\RequirePackage{xcolor}%
+\RequirePackage{tikz}%
+\RequirePackage{xcolor}%
+\RequirePackage{mdframed}%
+
+\usetikzlibrary{calc}%
+
+\definecolor{maincolor}{RGB}{200,40,42}%
+
+\makeatletter%
+\DeclareRobustCommand{\bfseries}{%
+	\not@math@alphabet\bfseries\mathbf%
+	\fontseries\bfdefault\selectfont%
+	\color{maincolor}%
+}%
+\makeatother%
+
+\newcommand{\university}{Universitat Rovira i Virgili}%
+\newcommand{\faculty}{Escola Tècnica Superior d'Enginyeria}%
+\newcommand{\maintitle}{Parkinson's Project}%
+\newcommand{\subject}{Scientific Programming}%
+\newcommand{\subtitle}{Master in Health Data Science — MHEDAS}%
+\newcommand{\authorname}{Annabel Margalef Burgos, Roger Puig I Arxer, Scarlett
+	Thomas and Ravneet-Rahul Sandhu Singh}%
+
+\renewcommand{\maketitle}{%
+	\begin{titlepage}%
+		\begin{center}%
+			{\fontsize{20pt}{24pt}\selectfont\textsc{\university}}\\[0.3cm]%
+			{\fontsize{18pt}{22pt}\selectfont\textsc{\faculty}}\\%
+			\vspace{1cm}%
+			\begin{mdframed}[
+					linewidth=2pt,
+					linecolor=maincolor,
+					innertopmargin=1.5em,
+					innerbottommargin=1.5em,
+					leftline=false,
+					rightline=false
+				]%
+				\begin{center}%
+					{\bfseries\fontsize{22pt}{28pt}\selectfont
+						\textcolor{maincolor}{\maintitle}}\par%
+				\end{center}%
+			\end{mdframed}%
+			\vspace{0.5cm}%
+			{\fontsize{14pt}{18pt}\selectfont\itshape \subtitle}\par%
+		\end{center}%
+		\vfill%
+		{\noindent%
+			\fontsize{12pt}{15pt}\selectfont%
+			\textbf{\textcolor{maincolor}{Subject:}} \subject\\[0.2cm]%
+			\textbf{\textcolor{maincolor}{Author:}} \authorname\\[0.2cm]%
+			\textbf{\textcolor{maincolor}{Date:}} January 25, 2025%
+		}%
+		\vfill%
+		\begin{center}%
+			\begin{tikzpicture}%
+				\foreach \k [count=\n from 0] in {01,02,03,04,05,06,07,08,09} {%
+						\pgfmathtruncatemacro{\col}{mod(\n,3)}%
+						\pgfmathtruncatemacro{\row}{int(\n/3)}%
+						\node[inner sep=0pt] at
+						($(0,0) + (\col*6cm, \row*3cm)$)
+						{\includegraphics[width=3cm]{../images/logos/logo_\k.png}};%
+					}%
+			\end{tikzpicture}%
+		\end{center}%
+		\vspace{1.5cm}%
+		\begin{center}%
+			\begin{minipage}{0.3\linewidth}%
+				\centering%
+				\includegraphics[width=0.6\linewidth]{../images/logos/eith_logo.png}%
+			\end{minipage}%
+			\hspace{0.1cm}%
+			\begin{minipage}{0.3\linewidth}%
+				\centering%
+				\includegraphics[width=0.8\linewidth]{../images/logos/eu_logo.png}%
+			\end{minipage}%
+		\end{center}%
+	\end{titlepage}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Geometry, header and footers %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[a4paper,margin=3cm]{geometry}%
+\RequirePackage{fancyhdr}%
+\RequirePackage{graphicx}%
+
+\newcommand{\masterlogo}{../images/logos/mhedas_logo.png}%
+
+\pagestyle{fancy}%
+\fancyhf{}%
+
+\fancyhead[C]{%
+	\makebox[\textwidth][s]{%
+		\begin{minipage}[c]{\dimexpr\textwidth - 4cm\relax}%
+			\raggedright\normalsize\textit{\subject}%
+		\end{minipage}%
+		\hfill%
+		\begin{minipage}[c]{4cm}%
+			\raggedleft\includegraphics[height=1cm]{\masterlogo}%
+		\end{minipage}%
+	}%
+}%
+
+\setlength{\headheight}{\dimexpr 1cm + 0.2cm\relax}%
+\renewcommand{\headrulewidth}{0pt}%
+
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}%
+\renewcommand{\subsectionmark}[1]{}% 
+\fancyfoot[L]{\nouppercase{\rightmark}}%
+\fancyfoot[R]{\thepage}%
+
+\AtBeginDocument{\pagestyle{fancy}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of contents, sections and spacing %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[section]{placeins}%
+\RequirePackage{tocloft}%
+\RequirePackage[nottoc,notbib,notlof,notlot]{tocbibind}%
+\RequirePackage{textcase}%
+\RequirePackage{etoolbox}%
+\RequirePackage{titlesec}%
+
+\renewcommand{\thesection}{\arabic{section}.}%
+\renewcommand{\thesubsection}{\thesection\arabic{subsection}}%
+
+\setlength{\parindent}{0pt}%
+\setlength{\parskip}{0.7em}%
+
+\titlelabel{\thetitle\enspace}%
+\titlespacing*{\section}
+{0pt}{1.5em plus 0.2em minus 0.1em}{0.5em plus 0.1em}%
+\titlespacing*{\subsection}
+{0pt}{1.2em plus 0.1em minus 0.1em}{0.4em plus 0.1em}%
+
+\setlength{\cftsecnumwidth}{1.1em}%
+\setlength{\cftsubsecnumwidth}{1.5em}%
+\setlength{\cftbeforesecskip}{0.5em}%
+\setlength{\cftbeforesubsecskip}{0.1em}%
+\renewcommand{\cftsecfont}{\bfseries}%
+\renewcommand{\cftsecpagefont}{\bfseries}%
+
+\setlength{\cftsecindent}{0pt}% 
+\setlength{\cftfigindent}{20pt}%
+\setlength{\cftsubsecindent}{20pt}%
+
+\renewcommand{\cftsubsecfont}{\normalfont}%
+\renewcommand{\cftsubsecpagefont}{\normalfont}%
+
+\renewcommand{\cftsecleader}{\textcolor{maincolor}{\cftdotfill{\cftdotsep}}}%
+
+\makeatletter
+\pretocmd{\@starttoc}{\thispagestyle{empty}}{}{}%
+\makeatother
+
+\makeatletter
+\newcommand{\lofsectiontitleentry}[1]{%
+	\par\vspace{1em}\noindent\textbf{#1}\par\nobreak
+}
+\newcommand{\lotsectiontitleentry}[1]{%
+	\par\vspace{1em}\noindent\textbf{#1}\par\nobreak
+}
+
+\newif\if@writeLOFsection
+\newif\if@writeLOTsection
+
+\let\original@section\section
+
+\renewcommand{\section}{%
+	\@ifstar{%
+		\original@section*
+	}{%
+		\@ifnextchar[{%
+			\custom@section@opt%
+		}{%
+			\custom@section@noopt%
+		}%
+	}%
+}
+
+\newcommand{\custom@section@opt}[2][]{%
+	\original@section[#1]{#2}%
+	\edef\temp@title{\thesection~#2}%
+	\global\@writeLOFsectiontrue
+	\global\@writeLOTsectiontrue
+}
+
+\newcommand{\custom@section@noopt}[1]{%
+	\original@section{#1}%
+	\edef\temp@title{\thesection~#1}%
+	\global\@writeLOFsectiontrue
+	\global\@writeLOTsectiontrue
+}
+
+\let\orig@figure\figure
+\renewcommand{\figure}{%
+	\if@writeLOFsection
+		\addtocontents{lof}{\protect\lofsectiontitleentry{\temp@title}}%
+		\global\@writeLOFsectionfalse
+	\fi
+	\orig@figure
+}
+
+\let\orig@table\table
+\renewcommand{\table}{%
+	\if@writeLOTsection
+		\addtocontents{lot}{\protect\lotsectiontitleentry{\temp@title}}%
+		\global\@writeLOTsectionfalse
+	\fi
+	\orig@table
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figures, tables, and equations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{amsmath,amsthm,mathtools}%
+\RequirePackage{color,xcolor}%
+\RequirePackage{longtable,tabularx,tabularray,booktabs,multirow,multicol,nicematrix,makecell}%
+\RequirePackage{graphicx,caption,float,setspace,framed,subfig,rotating,mwe}%
+
+\numberwithin{equation}{section}%
+\renewcommand{\theequation}{\thesection\arabic{equation}}%
+\counterwithin{table}{section}%
+\renewcommand{\thetable}{\thesection\arabic{table}}%
+\counterwithin{figure}{section}%
+\renewcommand{\thefigure}{\thesection\arabic{figure}}%
+
+\captionsetup[figure]{%
+	textfont        = small,
+	labelfont       = {bf,small},
+	justification   = justified,
+	format          = plain,
+	singlelinecheck = true,
+	belowskip       = -10pt,
+	aboveskip       = 10pt
+}%
+
+\makeatletter%
+\renewcommand{\tagform@}[1]{%
+	\hbox{\m@th\normalfont\bfseries(\ignorespaces#1\unskip)}%
+}%
+\makeatother%
+
+\setlength\intextsep{10pt}%
+
+\expandafter\def\expandafter\normalsize\expandafter{%
+	\normalsize%
+	\setlength\abovedisplayskip{12pt}%
+	\setlength\belowdisplayskip{12pt}%
+}%
+
+%%%%%%%%%%
+% Others %
+%%%%%%%%%%
+
+\RequirePackage{lipsum}%
+\RequirePackage[export]{adjustbox}%
+\RequirePackage{afterpage}%
+\RequirePackage{pgffor}%
+\RequirePackage{xstring}%
+\RequirePackage{tcolorbox}%
+\RequirePackage{lipsum}%
+\RequirePackage{minted}%
+\RequirePackage{csquotes}%
+\RequirePackage{xurl}%
+\RequirePackage{pgfgantt}
+\RequirePackage{enumitem}%
+
+\setlist[itemize]{%
+	topsep=-4pt,
+	partopsep=0pt,
+	itemsep=1pt,
+	parsep=0pt,
+	leftmargin=2em
+}
+
+\RequirePackage{listings}%
+
+\definecolor{codegreen}{rgb}{0,0.6,0}%
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}%
+\definecolor{codepurple}{rgb}{0.58,0,0.82}%
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}%
+
+\lstdefinestyle{mystyle}{%
+	backgroundcolor=\color{backcolour},
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2
+}%
+\lstset{style=mystyle}%
+
+\RequirePackage[hidelinks]{hyperref}%
+
+\renewcommand\UrlFont{\color{maincolor}\ttfamily}%
+
+\RequirePackage{cleveref}%
+
+\crefformat{figure}{\textbf{Figure~#1}}%
+\Crefformat{figure}{\textbf{Figure~#1}}%
+
+\crefformat{table}{\textbf{Table~#1}}%
+\Crefformat{table}{\textbf{Table~#1}}%
+
+\pretocmd{\thebibliography}{%
+	\addcontentsline{toc}{section}{References}%
+}{}{}%

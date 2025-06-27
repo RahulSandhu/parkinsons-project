@@ -1,0 +1,44 @@
+# Font
+font.family       : sans-serif
+font.sans-serif   : DejaVu Sans
+font.size         : 12
+
+# Figure
+figure.figsize    : 8, 5
+figure.dpi        : 100
+figure.autolayout : True
+
+# Axes
+axes.titlesize    : 14
+axes.titleweight  : bold
+axes.labelsize    : 12
+axes.grid         : True
+axes.grid.which   : both
+axes.spines.top   : False
+axes.spines.right : False
+axes.linewidth    : 1.0
+
+# Grid
+grid.linestyle    : --
+grid.linewidth    : 0.5
+grid.alpha        : 0.7
+
+# Ticks
+xtick.labelsize   : 11
+ytick.labelsize   : 11
+xtick.direction   : out
+ytick.direction   : out
+
+# Lines
+lines.linewidth   : 2.0
+lines.markersize  : 6
+
+# Legend
+legend.fontsize   : 10
+legend.frameon    : True
+legend.loc        : best
+
+# Savefig
+savefig.dpi       : 300
+savefig.format    : png
+savefig.bbox      : tight
