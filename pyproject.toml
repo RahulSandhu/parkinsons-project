@@ -5,9 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "parkinsons"
 version = "0.1.0"
-description = "Modelling Parkinson's disease data using KNN and integrating the model within an API."
+description = "Modeling Parkinson's disease data using KNN and integrating the model within an API."
 authors = [{ name = "Ravneet-Rahul Sandhu Singh", email = "rahulsandhu542001@gmail.com" }]
 
 [tool.setuptools]
-package-dir = {"" = "code"}
+package-dir = {"" = "src"}
 packages = ["model", "processing"]

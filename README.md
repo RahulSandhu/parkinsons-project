@@ -10,11 +10,6 @@ processing, model training, and API deployment.
 ## 🕸️ Project
 
 ```
-├── code/                   # Source code for modeling and API
-│   ├── api/                # FastAPI implementation for model inference
-│   ├── main.py             # Model generation
-│   ├── model/              # Model training and inference logic
-│   └── processing/         # Feature selection and data preprocessing
 ├── config/                 # Custom configuration (e.g., Matplotlib style)
 ├── data/                   # Raw, processed, and dummy datasets
 │   ├── dummy/              # Example data for testing the API
@@ -30,6 +25,11 @@ processing, model training, and API deployment.
 │   └── video.mp4           # Walkthrough video
 ├── report/                 # LaTeX files for the final project report
 ├── results/                # Output folders with metrics, logs, and model files
+├── src/                    # Source code for modeling and API
+│   ├── api/                # FastAPI implementation for model inference
+│   ├── main.py             # Model generation
+│   ├── model/              # Model training and inference logic
+│   └── processing/         # Feature selection and data preprocessing
 ├── LICENSE                 # License file
 ├── pyproject.toml          # Python project configuration
 ├── requirements.txt        # Python dependencies
@@ -58,12 +58,12 @@ processing, model training, and API deployment.
    pip install -r requirements.txt
    ```
 
-## 🖥️ Code
+## 🖥️ Source
 
-* `code/api/`: FastAPI app and endpoint logic
-* `code/main.py`: Entrypoint to launch the API server
-* `code/model/`: KNN model training, saving, and loading functions
-* `code/processing/`: Data preprocessing, feature engineering, and selection
+* `src/api/`: FastAPI app and endpoint logic
+* `src/main.py`: Entrypoint to launch the API server
+* `src/model/`: KNN model training, saving, and loading functions
+* `src/processing/`: Data preprocessing, feature engineering, and selection
 
 ## 📁 Data
 
