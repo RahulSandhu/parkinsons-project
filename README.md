@@ -1,6 +1,6 @@
 <div align="justify">
 
-    # Parkinson's Disease Modeling API
+# Parkinson's Disease Modeling API
 
 This repository contains the complete workflow for modeling Parkinson’s disease
 progression using K-Nearest Neighbors (KNN) and integrating the final model
