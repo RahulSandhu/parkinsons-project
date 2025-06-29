@@ -1,6 +1,7 @@
 # Ignore files and folders
 ./.gitignore
 ./.venv/
+*.mp4
 
 # Ignore everything under report/
 report/**
