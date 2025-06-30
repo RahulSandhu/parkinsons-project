@@ -1,0 +1,47 @@
+\section{Conclusions}
+
+The purpose of this study was to detect Parkinson’s disease (PD) using voice
+measurements and to evaluate the performance of three different preprocessing
+approaches with a KNN model: the raw preprocessed model, the averaged model,
+and the normalized model. Exploratory data analysis was performed to identify
+outliers, missing values, and inconsistencies in the raw data. The dataset was
+then preprocessed through renaming, outlier handling, aggregation, and
+normalization. Dimensionality reduction and correlation-based feature selection
+were applied to optimize model performance.
+
+The results demonstrated that preprocessing methods significantly influence the
+accuracy and stability of the KNN model. Among the three approaches, the
+normalized model (\texttt{df\_norm}) provided the best performance, achieving
+an optimal \(k = 4\) with nearly 97\% accuracy, compared to approximately 83\%
+accuracy with the raw preprocessed model (\texttt{df\_clean}). These findings
+underscore the importance of normalizing and scaling features to ensure
+compatibility and improve model performance. The averaged model
+(\texttt{df\_avg}) failed to achieve convergence, likely due to insufficient
+data points and the resulting loss of critical information. This suggests that
+averaging may only be effective on substantially larger datasets.
+
+The integration of the project workflow into an API enhanced model management,
+evaluation, and prediction capabilities. The user-friendly frontend of the API
+allows users to explore different model versions, upload data, and obtain
+predictions seamlessly. This implementation not only facilitates collaboration
+but also provides a foundation for real-world applications of the model.
+
+However, the study has several limitations. The models were trained on a small
+dataset consisting of 31 individuals, which limits the generalizability of the
+results. Training on larger datasets would produce a more robust predictive
+model. Additionally, outlier handling, which replaced outlier values with
+within-subject non-outlier averages, may have excluded important
+Parkinson’s-specific diagnostic information, potentially reducing the model’s
+sensitivity. Dimensionality reduction and feature selection were based solely
+on correlation metrics, which capture only linear relationships and may
+overlook non-linear interactions between features. Finally, the model is
+designed to classify data into a binary outcome (Parkinson’s or no
+Parkinson’s), whereas predicting disease stages or progression would provide
+greater clinical value.
+
+Future directions for this work include expanding the dataset to improve model
+robustness, integrating additional biomarkers (e.g., handwriting or gait
+analysis) alongside voice data, and enhancing the API to support real-time data
+input and predictions. These advancements would significantly increase the
+utility of the system, particularly in clinical settings, where early detection
+and personalized treatment of PD are critical.

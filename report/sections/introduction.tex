@@ -1,41 +1,34 @@
 \section{Introduction}
 
-Parkinson's disease (PD) is a progressive neurodegenerative disorder affecting
-over 8.5 million people globally as of 2019 \cite{WHO2022}, with cases rising
-due to aging populations and improved diagnostics. A significant challenge for
-about 90\% of individuals with PD is speech impairment \cite{IndianaParkinson},
-known as hypokinetic dysarthria, which includes reduced vocal loudness,
-monotone speech, imprecise articulation, and variable speech rates. Early
-detection of PD through the analysis of speech can confer immense benefit,
-including earlier access to traditional and experimental treatment, which can,
-in turn, help to delay the progression of the disease.
+Parkinson's disease (PD) is a progressive neurodegenerative disorder that
+affected over 8.5 million people globally in 2019 \cite{WHO2022}, with numbers
+increasing due to aging populations and improved diagnostics. Around 90\% of
+individuals with PD experience speech impairment \cite{IndianaParkinson},
+primarily hypokinetic dysarthria, which involves reduced vocal loudness,
+monotone speech, imprecise articulation, and fluctuating speech rates.
+Detecting PD early through speech analysis can significantly improve access to
+treatment and may help slow disease progression.
 
-Current methods for detecting PD using speech features include:
+Various machine learning methods have been applied to PD detection using speech
+features. Support Vector Machines (SVM) classify patients based on acoustic
+features like Mel Frequency Cepstral Coefficients (MFCC) and
+AutoEncoder-derived patterns \cite{SpringerSpeechProcessing}. Deep Neural
+Networks (DNN) capture complex patterns in speech data for accurate
+classification \cite{AIPDNN}, while Random Forests (RF) help identify key
+speech features and assist in distinguishing PD-related symptoms
+\cite{SpringerMLPD}.
 
-\begin{itemize}
-	\item \textbf{Support Vector Machines (SVM):} Used for classifying PD
-	      patients by analyzing speech features like Mel Frequency Ceptral
-	      Coefficients (MFCC) and AutoEncoder patterns
-	      \cite{SpringerSpeechProcessing}.
-	\item \textbf{Deep Neural Networks (DNN):} Employed to model complex patterns
-	      in speech data for accurate PD detection \cite{AIPDNN}.
-	\item \textbf{Random Forests (RF):} Utilized to identify important speech
-	      features and classify patients based on PD-related symptoms
-	      \cite{SpringerMLPD}.
-\end{itemize}
-
-While these methods demonstrate considerable success, this project aims to
-explore the effectiveness of K-Nearest Neighbors (KNN) for PD detection.
-Specifically, three KNN models will be developed: one trained on cleaned data,
-another on aggregated data, and a third on normalized data. KNN is a simple,
-non-parametric algorithm that requires minimal assumptions about the data
-distribution, making it well-suited for small datasets and multi-class
-problems. Additionally, an API will be created to enable users to test the
-models by providing their own input values, offering an interactive tool for PD
-prediction.
-
-\cref{fig:fig1} illustrates project timeline and the task distribution
-spanning from 8/01/2025 to 19/01/2025.
+Building upon these approaches, this project investigates the potential of
+K-Nearest Neighbors (KNN) for PD detection. Three distinct KNN models will be
+developed: one trained on cleaned data, another on aggregated data, and a third
+on normalized data. As a simple and non-parametric algorithm, KNN makes minimal
+assumptions about the underlying data distribution, which makes it particularly
+well-suited for smaller datasets and multi-class classification tasks.
+Furthermore, an API will be implemented to allow users to input their own
+values and test the models interactively, providing a practical and
+user-friendly tool for PD prediction. \cref{fig:fig1} illustrates the project
+timeline and task distribution, covering the period from 8/01/2025 to
+19/01/2025.
 
 \usetikzlibrary{arrows, positioning, shapes.geometric,
 	decorations.pathreplacing}
