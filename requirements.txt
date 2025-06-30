@@ -39,7 +39,7 @@ s3transfer==0.13.0
 setuptools==80.9.0
 shtab==1.7.2.dev0+g61ec99d.d20241116
 six==1.17.0
-termcolor==2.5.0
+termcolor==3.1.0
 tldr==3.4.1
 trash-cli==0.24.5.26
 ufw==0.36.2
