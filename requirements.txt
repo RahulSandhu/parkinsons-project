@@ -22,7 +22,7 @@ msgpack==1.0.5
 OpenTimelineIO==0.17.0
 packaging==25.0
 pexpect==4.9.0
-platformdirs==4.3.6
+platformdirs==4.3.8
 psutil==7.0.0
 ptyprocess==0.7.0
 pyaaf2==1.7.1
