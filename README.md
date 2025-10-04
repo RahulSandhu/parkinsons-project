@@ -44,8 +44,8 @@ processing, model training, and API deployment.
 
 ## 📊 Results
 
-* `results/YYYY-MM-DD_HH-MM-SS/`: Timestamped directories containing evaluation
-results, model files, and logs
+* `results/YYYY-MM-DD_HH-MM-SS/`: Timestamped directories containing results,
+model files, and logs
 * Best performance achieved by normalized KNN model with 97% accuracy at k = 4
 
 ## 🎓 Acknowledgements
