@@ -48,10 +48,6 @@ processing, model training, and API deployment.
 results, model files, and logs
 * Best performance achieved by normalized KNN model with 97% accuracy at k = 4
 
-## 📚 License
-
-* This project is licensed under the terms of the [LICENSE](LICENSE) file.
-
 ## 🎓 Acknowledgements
 
 * Dataset used for modeling Parkinson’s disease
