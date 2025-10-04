@@ -286,4 +286,4 @@ if __name__ == "__main__":
     plt.tight_layout()
     output_file = os.path.join(output_dir, "best-k.png")
     plt.savefig(output_file, dpi=300, bbox_inches="tight")
-    # plt.close()
+    plt.close()
