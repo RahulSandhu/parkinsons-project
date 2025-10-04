@@ -40,8 +40,7 @@ numpy==2.3.3
 OpenTimelineIO==0.17.0
 packaging==25.0
 pandas==2.3.3
-# Editable Git install with no remote (parkinsons==0.1.0)
--e /home/rahul/desktop/mhedas/1st_year/q1/scientific_programming/assessments/a01_parkinsons_project
+-e git+https://github.com/RahulSandhu/parkinsons-project@75670e89bb736f71df2934cd0447cd48a0c51205#egg=parkinsons
 parso==0.8.5
 pexpect==4.9.0
 pillow==11.3.0
