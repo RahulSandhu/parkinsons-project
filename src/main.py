@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import cast
 
 import pandas as pd
+
 from model.collinearity import collinearity
 from model.model_generator import model_generator
 from processing.aggregate import aggregate
@@ -43,7 +44,7 @@ final_features.remove("status")
 
 # Define base directory logs
 base_dir = "../results/"
-exec_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+exec_time = datetime.now().strftime("%Y%m%d_%H%M%S")
 logs_dir = os.path.join(base_dir, exec_time)
 os.makedirs(logs_dir, exist_ok=True)
 

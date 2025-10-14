@@ -1,9 +1,0 @@
-model_clean with n_neighbors = 4
-Metrics: Accuracy = 0.85, F1 Score = 0.85, Precision = 0.84, Recall = 0.85
-
-model_avg with n_neighbors = 4
-Metrics: Accuracy = 0.50, F1 Score = 0.33, Precision = 0.25, Recall = 0.50
-
-model_norm with n_neighbors = 4
-Metrics: Accuracy = 0.97, F1 Score = 0.97, Precision = 0.97, Recall = 0.97
-

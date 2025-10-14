@@ -1,7 +1,6 @@
 import itertools
 import os
 
-import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
@@ -117,16 +116,13 @@ def scatter_plot(
     # Adjust layout and save figure
     plt.tight_layout()
     output_file = os.path.join(
-        output_dir, f"{group_name.replace(' ', '-')}.png".lower()
+        output_dir, f"{group_name.replace(' ', '_')}.png".lower()
     )
     plt.savefig(output_file, dpi=300, bbox_inches="tight")
     plt.close()
 
 
 if __name__ == "__main__":
-    # Fix for Wayland
-    matplotlib.use("QtAgg")
-
     # Use custom style
     plt.style.use("../../config/matplotlib/mhedas.mplstyle")
 
