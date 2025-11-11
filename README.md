@@ -31,27 +31,27 @@ processing, model training, and API deployment.
 
 ## 🖥️ Source
 
-* `src/api/`: FastAPI app and endpoint logic
-* `src/main.py`: Entrypoint to generate models
-* `src/model/`: KNN model training and feature selection
-* `src/processing/`: Data preprocessing
+- `src/api/`: FastAPI app and endpoint logic
+- `src/main.py`: Entrypoint to generate models
+- `src/model/`: KNN model training and feature selection
+- `src/processing/`: Data preprocessing
 
 ## 📁 Data
 
-* `data/raw/`: Original Parkinson’s disease dataset
-* `data/processed/`: Cleaned and transformed data used for modeling
-* `data/dummy/`: Synthetic examples used for testing the API
+- `data/raw/`: Original Parkinson’s disease dataset
+- `data/processed/`: Cleaned and transformed data used for modeling
+- `data/dummy/`: Synthetic examples used for testing the API
 
 ## 📊 Results
 
-* `results/YYYYMMDD_HHMMSS/`: Timestamped directories containing results,
-model files, and logs
-* Best performance achieved by normalized KNN model with 97% accuracy at k = 4
+- `results/YYYYMMDD_HHMMSS/`: Timestamped directories containing results, model
+  files, and logs
+- Best performance achieved by normalized KNN model with 97% accuracy at k = 4
 
 ## 🎓 Acknowledgements
 
-* Dataset used for modeling Parkinson’s disease
-* Developed as part of the Health Data Science Master’s program at Universitat
-Rovira i Virgili (URV)
+- Dataset used for modeling Parkinson’s disease
+- Developed as part of the Health Data Science Master’s program at Universitat
+  Rovira i Virgili (URV)
 
 </div>
