@@ -124,13 +124,13 @@ def scatter_plot(
 
 if __name__ == "__main__":
     # Use custom style
-    plt.style.use("../../config/matplotlib/mhedas.mplstyle")
+    plt.style.use("../../config/matplotlib/stylelib/mhedas.mplstyle")
 
     # Load dataset
     df_norm = pd.read_csv("../../data/processed/parkinsons_norm.data")
 
     # Define output directory and ensure it exists
-    output_dir = "../../images/feature_selection/"
+    output_dir = "../../results/figures/"
     os.makedirs(output_dir, exist_ok=True)
 
     # Define feature groups

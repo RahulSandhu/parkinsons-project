@@ -143,7 +143,7 @@ if __name__ == "__main__":
     matplotlib.use("QtAgg")
 
     # Use custom style
-    plt.style.use("../../config/matplotlib/mhedas.mplstyle")
+    plt.style.use("../../config/matplotlib/stylelib/mhedas.mplstyle")
 
     # Load preprocessed data
     df_clean = pd.read_csv("../../data/processed/parkinsons_clean.data")
@@ -214,7 +214,7 @@ if __name__ == "__main__":
     print(f"Intersections for df_norm: {intersections_norm}")
 
     # Define output directory and ensure it exists
-    output_dir = "../../images/feature_selection/"
+    output_dir = "../../results/figures/"
     os.makedirs(output_dir, exist_ok=True)
 
     # Plot results for all datasets

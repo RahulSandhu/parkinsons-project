@@ -40,7 +40,6 @@ numpy==2.3.3
 OpenTimelineIO==0.17.0
 packaging==25.0
 pandas==2.3.3
--e git+https://github.com/RahulSandhu/parkinsons-project@75670e89bb736f71df2934cd0447cd48a0c51205#egg=parkinsons
 parso==0.8.5
 pexpect==4.9.0
 pillow==11.3.0

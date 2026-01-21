@@ -7,7 +7,7 @@ from fastapi import FastAPI, Form, Query
 from fastapi.responses import HTMLResponse, JSONResponse
 
 # Directory for model files
-MODEL_DIR = "../../results/"
+MODEL_DIR = "../../models/"
 
 # Initialize API
 app = FastAPI()
