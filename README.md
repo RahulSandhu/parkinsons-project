@@ -59,7 +59,7 @@ normalization to predict Parkinson's disease status.
 
 - [Kaggle](https://www.kaggle.com/datasets/vikasukani/parkinsons-disease-data-set)
   – Parkinson's Disease dataset
-- Developed as part of the Scientific Programming course of the Master in
-  Health Data Science Master's program at Universitat Rovira i Virgili (URV)
+- Developed as part of the Scientific Programming course in the Master in
+  Health Data Science program at Universitat Rovira i Virgili (URV)
 
 </div>
