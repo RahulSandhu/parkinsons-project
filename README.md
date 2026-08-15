@@ -1,65 +1,57 @@
-<div align="justify">
-
 # Parkinson's Disease Modeling API
 
 This repository contains the complete workflow for modeling Parkinson's disease
 progression using K-Nearest Neighbors (KNN) and integrating the final model
-into a minimal API for real-time prediction. The project includes code for data
-processing, model training, and API deployment.
+into a minimal API for real-time prediction.
 
-## 🚀 Setup
+## Introduction
 
-1. **Clone the repository**
+Parkinson's disease (PD) is a progressive neurodegenerative disorder that
+affected over 8.5 million people globally in 2019. Around 90% of individuals
+with PD experience speech impairment, primarily hypokinetic dysarthria.
+Detecting PD early through speech analysis can improve access to treatment and
+may help slow disease progression. This project investigates the potential of
+KNN for PD detection by training three models on cleaned, aggregated, and
+normalized voice measurements.
 
-   ```bash
-   git clone https://github.com/RahulSandhu/parkinsons-project
-   cd parkinsons-project
-   ```
+## Methodology
 
-2. **Create and activate a virtual environment**
+The dataset includes voice measurements from 31 individuals across 195
+recordings, labeled as healthy (0) or Parkinson's (1). The pipeline consists of
+four preprocessing steps:
 
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
+1. Renaming columns for consistency.
+2. Removing outliers using the IQR method and replacing them with the
+   per-subject mean.
+3. Aggregating trials per subject by mean feature values.
+4. Normalizing features with Min-Max scaling.
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+A correlation-based feature selection step retains the least correlated
+features. The final feature set is: absJitter, apq, D2, DFA, HNR, maxFF, NHR,
+PPE, RPDE, spread1, and spread2. Data is split into 70% training and 30%
+testing, and the optimal k is selected where training and testing accuracy
+intersect.
 
-## 📁 Dataset
+![Pipeline](tmp/pipeline.png)
 
-The project analyzes a dataset of Parkinson's disease patients with comprehensive
-voice measurement features. The dataset contains biomedical voice measurements
-from individuals, with key features including:
+## Results
 
-- **Voice frequency measures**: Average vocal fundamental frequency, variation
-  in fundamental frequency
-- **Amplitude measures**: Variations in amplitude, noise-to-tonal component
-  ratios
-- **Harmonic measures**: Harmonic-to-noise ratio, correlation measures
-- **Nonlinear measures**: Recurrence period density entropy, detrended
-  fluctuation analysis
-- **Signal complexity**: Pitch period entropy, fundamental frequency variation
+| Model    | Accuracy | Optimal k |
+| -------- | -------- | --------- |
+| df_clean | ~83%     | ~12       |
+| df_avg   | low      | flat      |
+| df_norm  | ~97%     | 4         |
 
-The analysis uses **K-Nearest Neighbors (KNN)** with feature selection and
-normalization to predict Parkinson's disease status.
+The normalized KNN model outperforms the others. Feature selection and
+normalization improve both accuracy and stability. The trained model is
+integrated into a FastAPI backend with an HTML/CSS/JavaScript frontend for
+real-time predictions.
 
-## 📊 Results
+## Conclusions
 
-- Best performance achieved by normalized KNN model with **97% accuracy** at
-  k = 4
-- Feature selection and normalization significantly improved model performance
-- Model integrated into FastAPI for real-time predictions
-- Comprehensive evaluation metrics including precision, recall, and F1-score
-  demonstrate robust classification performance
-
-## 🎓 Acknowledgements
-
-- [Kaggle](https://www.kaggle.com/datasets/vikasukani/parkinsons-disease-data-set)
-  – Parkinson's Disease dataset
-- Developed as part of the Scientific Programming course in the Master in
-  Health Data Science program at Universitat Rovira i Virgili (URV)
-
-</div>
+Normalization and feature selection substantially improve KNN performance for
+PD detection. The averaged model underperforms, likely due to information loss
+from aggregation. The API provides a user-friendly interface for model
+selection, metric inspection, and prediction. Limitations include the small
+dataset and binary classification only. Future work could expand the dataset,
+integrate additional biomarkers, and support real-time clinical input.

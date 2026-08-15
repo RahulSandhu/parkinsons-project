@@ -1,7 +1,10 @@
-# Ignore files and folders
-config/
-report/**
-*.mp4
-
-# Re-allow only main.pdf
+.ruff_cache/
+.venv/
+AGENTS.md
+data/
+docs/*
+!docs/schemas/
+report/*
 !report/main.pdf
+results/
+videos/

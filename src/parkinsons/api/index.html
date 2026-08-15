@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkinson's Disease Prediction API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 { text-align: center; }
+        form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        label { display: block; margin-bottom: 2px; font-size: 0.9em; }
+        input { width: 100%; padding: 6px; box-sizing: border-box; }
+        button {
+            grid-column: span 2;
+            padding: 12px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Parkinson's Disease Prediction</h1>
+    <form id="predictForm">
+        <div>
+            <label for="datetime_folder">Model Folder</label>
+            <input type="text" id="datetime_folder" name="datetime_folder" required>
+        </div>
+        <div>
+            <label for="model_name">Model Name</label>
+            <input type="text" id="model_name" name="model_name" value="model_norm.pkl" required>
+        </div>
+        <div><label>avFF</label><input type="number" step="any" name="avFF"></div>
+        <div><label>maxFF</label><input type="number" step="any" name="maxFF"></div>
+        <div><label>minFF</label><input type="number" step="any" name="minFF"></div>
+        <div><label>percJitter</label><input type="number" step="any" name="percJitter"></div>
+        <div><label>absJitter</label><input type="number" step="any" name="absJitter"></div>
+        <div><label>rap</label><input type="number" step="any" name="rap"></div>
+        <div><label>ppq</label><input type="number" step="any" name="ppq"></div>
+        <div><label>ddp</label><input type="number" step="any" name="ddp"></div>
+        <div><label>lShimmer</label><input type="number" step="any" name="lShimmer"></div>
+        <div><label>dbShimmer</label><input type="number" step="any" name="dbShimmer"></div>
+        <div><label>apq3</label><input type="number" step="any" name="apq3"></div>
+        <div><label>apq5</label><input type="number" step="any" name="apq5"></div>
+        <div><label>apq</label><input type="number" step="any" name="apq"></div>
+        <div><label>dda</label><input type="number" step="any" name="dda"></div>
+        <div><label>NHR</label><input type="number" step="any" name="NHR"></div>
+        <div><label>HNR</label><input type="number" step="any" name="HNR"></div>
+        <div><label>RPDE</label><input type="number" step="any" name="RPDE"></div>
+        <div><label>DFA</label><input type="number" step="any" name="DFA"></div>
+        <div><label>spread1</label><input type="number" step="any" name="spread1"></div>
+        <div><label>spread2</label><input type="number" step="any" name="spread2"></div>
+        <div><label>D2</label><input type="number" step="any" name="D2"></div>
+        <div><label>PPE</label><input type="number" step="any" name="PPE"></div>
+        <button type="submit">Predict</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('predictForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/predict/', { method: 'POST', body: formData });
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+</html>

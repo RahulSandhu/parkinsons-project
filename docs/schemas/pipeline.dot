@@ -1,0 +1,22 @@
+digraph pipeline {
+    rankdir=TB;
+    node [shape=box, style=rounded, fontname="Helvetica"];
+
+    raw [label="Raw data\n(data/raw/parkinsons.data)"];
+    rename [label="Rename columns\n(parkinsons.utils.rename)"];
+    outliers [label="Remove outliers\n(parkinsons.utils.outliers)"];
+    aggregate [label="Aggregate by subject\n(parkinsons.utils.aggregate)"];
+    normalize [label="Normalize\n(parkinsons.utils.normalize)"];
+    features [label="Feature selection\n(parkinsons.utils.collinearity)"];
+    model [label="Train KNN models\n(parkinsons.analysis.model)"];
+    api [label="FastAPI deployment\n(parkinsons.api.app)"];
+
+    raw -> rename -> outliers;
+    outliers -> aggregate;
+    outliers -> normalize;
+    outliers -> features;
+    aggregate -> model;
+    normalize -> model;
+    features -> model;
+    model -> api;
+}
