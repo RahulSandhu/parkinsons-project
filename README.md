@@ -36,16 +36,20 @@ intersect.
 
 ## Results
 
+The normalized KNN model outperforms the others. Feature selection and
+normalization improve both accuracy and stability. The trained model is
+integrated into a FastAPI backend with an HTML/CSS/JavaScript frontend for
+real-time predictions.
+
+<div align="center">
+
 | Model    | Accuracy | Optimal k |
 | -------- | -------- | --------- |
 | df_clean | ~83%     | ~12       |
 | df_avg   | low      | flat      |
 | df_norm  | ~97%     | 4         |
 
-The normalized KNN model outperforms the others. Feature selection and
-normalization improve both accuracy and stability. The trained model is
-integrated into a FastAPI backend with an HTML/CSS/JavaScript frontend for
-real-time predictions.
+</div>
 
 ## Conclusions
 
