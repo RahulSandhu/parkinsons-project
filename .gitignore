@@ -2,9 +2,12 @@
 .venv/
 AGENTS.md
 data/
+
 docs/*
 !docs/schemas/
+
 report/*
 !report/main.pdf
+
 results/
 videos/
